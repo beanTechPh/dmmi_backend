@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  product_type: one
+  serial_no: MyString
+  origin: MyString
+  description: MyString
+  installed_date: 2022-09-02 11:02:25
+  branch: one
+
+two:
+  name: MyString
+  product_type: two
+  serial_no: MyString
+  origin: MyString
+  description: MyString
+  installed_date: 2022-09-02 11:02:25
+  branch: two
