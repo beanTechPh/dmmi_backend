@@ -7,15 +7,22 @@ class Client::EquipmentsController < ClientController
 
     company = Company.first
     equipments = company.equipments
+    @branches = company.branches
+
+    filters = {
+      type_filter: params[:type_filter],
+      origin_filter: params[:origin_filter],
+      branch_filter: params[:branch_filter]
+    }
 
     if !params[:keyword].present?
-      @equipments = equipments.order(:name)
+      @equipments = equipments.filters(filters).order(:name)
       num_of_equipments = @equipments.count
     else
       keywords = params[:keyword].split(' ').map{|kw| "%#{kw}%"}
 
       et = Equipment.arel_table
-      @equipments = equipments.where(
+      @equipments = equipments.filters(filters).where(
         et[:name].matches_all(keywords).or(
           et[:serial_no].matches_all(keywords)
         )

@@ -15,3 +15,15 @@ json.pagination do
   json.page         @page 
   json.total_page   @total_page
 end
+
+json.types do
+  json.array! ProductType.all do |type|
+    json.name       type.name
+  end
+end
+
+json.branches do
+  json.array! @branches.all do |branch|
+    json.name       branch.name
+  end
+end
