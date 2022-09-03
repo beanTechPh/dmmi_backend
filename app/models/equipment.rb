@@ -28,4 +28,17 @@ class Equipment < ApplicationRecord
     return equipments
   end
   
+  def self.generate_url_code
+    o = [('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+
+    code = ''
+    loop do
+      code = (0...50).map { o[rand(o.length)] }.join
+
+      break if !Equipment.find_by(url_code: code).present?
+    end
+
+    return code
+  end
+  
 end

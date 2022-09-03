@@ -44,7 +44,8 @@ if Equipment.all.count == 0
       origin: "order",
       description: "4000A, 3P, 400V, Schnieder",
       installed_date: DateTime.new(2021, 8),
-      branch: Branch.find_by(name: "City Mall Cotabato")
+      branch: Branch.find_by(name: "City Mall Cotabato"),
+      brand: "DMMI"
     },
     {
       name: "Enclosed Panel Board",
@@ -53,11 +54,13 @@ if Equipment.all.count == 0
       origin: "scan",
       description: "4000A, 3P, 400V, Schnieder",
       installed_date: DateTime.new(2020, 8),
-      branch: Branch.find_by(name: "City Mall Danao")
+      branch: Branch.find_by(name: "City Mall Danao"),
+      brand: "Existing"
     }
   ]
 
   equipments.each do |equipment|
-    Equipment.create!(equipment)
+    e = Equipment.create!(equipment)
+    e.update!(url_code: Equipment.generate_url_code)
   end
 end
