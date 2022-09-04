@@ -6,6 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+if Admin.all.count == 0
+  Admin.create!(
+    first_name: "Super",
+    last_name: "Admin",
+    mobile_no: "09053536495",
+    address: "Cebu City",
+    email: "superadmin@gmail.com",
+    password: "123456"
+  )
+end
+
 if Company.all.count == 0
   Company.create!(
     name: "DMMI",
