@@ -63,7 +63,6 @@ class Equipment < ApplicationRecord
           days = now.day - idate.day 
         else  # installed day is greater than now day
           if idate.month == now.month
-            puts "same month"
             days = idate.day - now.day
           else
             # get the last day of installed date month

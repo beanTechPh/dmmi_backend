@@ -5,7 +5,7 @@ class Admin::EquipmentsController < AdminController
     @page = params[:page].present? ? params[:page].to_i : 1
     offset = params[:page].present? ? params[:page].to_i - 1 : 0
 
-    equipments = Equipment.all
+    equipments = Equipment.all.order(:serial_no)
     @branches = Branch.all
     @brands = equipments.pluck(:brand).uniq.sort
 
