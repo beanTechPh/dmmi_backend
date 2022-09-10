@@ -4,10 +4,11 @@ json.equipments do
     json.name         equipment.name 
     json.type         equipment.product_type.name 
     json.serial_no    equipment.serial_no
-    json.origin       equipment.origin.capitalize 
+    # json.origin       equipment.origin.capitalize 
     json.description  equipment.description
     json.branch       equipment.branch.name 
     json.age          equipment.age
+    json.brand        equipment.brand
   end
 end
 
@@ -27,3 +28,5 @@ json.branches do
     json.name       branch.name
   end
 end
+
+json.brands       @brands

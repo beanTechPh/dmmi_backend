@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   belongs_to :product_type
   belongs_to :branch
+  has_many_attached :images
 
   def age
     "10years"
@@ -24,8 +25,31 @@ class Equipment < ApplicationRecord
 
       equipments = equipments.where(branch_id: branch.id)
     end
+    
+    if filters[:brand_filter].present?
+      equipments = equipments.where(brand: filters[:brand_filter])
+    end
 
     return equipments
+  end
+
+  def self.generate_serial_no
+    last_equipment = Equipment.last 
+
+    if last_equipment.present? 
+      last_year = last_equipment.serial_no.split("-").first.to_i
+      last_num = last_equipment.serial_no.split("-").last.to_i
+
+      if last_year == DateTime.now.year
+        num = (last_num + 1).to_s.rjust(5, '0')
+        return "#{last_year}-#{num}"
+      end
+    end
+
+    year = DateTime.now.year
+    num = 1.to_s.rjust(5, '0')
+
+    return "#{year}-#{num}"
   end
   
   def self.generate_url_code

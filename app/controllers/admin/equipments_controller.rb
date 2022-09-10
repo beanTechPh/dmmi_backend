@@ -7,11 +7,13 @@ class Admin::EquipmentsController < AdminController
 
     equipments = Equipment.all
     @branches = Branch.all
+    @brands = equipments.pluck(:brand).uniq.sort
 
     filters = {
       type_filter: params[:type_filter],
       origin_filter: params[:origin_filter],
-      branch_filter: params[:branch_filter]
+      branch_filter: params[:branch_filter],
+      brand_filter: params[:brand_filter]
     }
 
     if !params[:keyword].present?
@@ -52,6 +54,9 @@ class Admin::EquipmentsController < AdminController
   
   def create
     equipment = Equipment.new(equipment_params)
+    equipment.brand = params[:brand].upcase
+    equipment.serial_no = Equipment.generate_serial_no
+    equipment.url_code = Equipment.generate_url_code
 
     equipment.save! 
 
@@ -64,7 +69,7 @@ class Admin::EquipmentsController < AdminController
 
   private 
     def equipment_params 
-      params.permit(:name, :product_type_id, :origin, :installed_date, :brand, :branch_id, :description)
+      params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, images: [])
     end
     
 end
