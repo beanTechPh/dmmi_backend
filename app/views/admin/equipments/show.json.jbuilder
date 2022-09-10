@@ -7,6 +7,7 @@ json.equipment do
   json.description  @equipment.description
   json.branch       @equipment.branch.name 
   json.age          @equipment.age
+  
   if @equipment.images.attached?
     json.images do
       json.array! @equipment.images.collect{|image| url_for(image)}

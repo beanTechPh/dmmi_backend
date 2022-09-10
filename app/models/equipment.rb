@@ -4,7 +4,85 @@ class Equipment < ApplicationRecord
   has_many_attached :images
 
   def age
-    "10years"
+    years = 0
+    months = 0
+    days = 0
+    now = DateTime.now.in_time_zone("Asia/Manila")  # date now
+    idate = installed_date.in_time_zone("Asia/Manila")  # installed date
+    
+    if idate.year == now.year
+      # if same year, installed date month can be either equal or less than the now month
+      if idate.month == now.month 
+        if idate.day < now.day 
+          days = now.day - idate.day
+        end
+      else
+        # subtracted 1 because we cant say if the installed day is greater than or equal to now day, because if it is less than, it cannot be a one complete month
+        months = now.month - idate.month - 1
+
+        if idate.day <= now.day
+          months += 1
+          days = now.day - idate.day 
+        else  # installed day is greater than now day
+          # get the last day of installed date month
+          last_day_of_installed_date_month = idate.end_of_month.day
+          installed_date_days = last_day_of_installed_date_month - idate.day
+
+          days = now.day + installed_date_days
+        end
+      end
+    else
+      # subtracted 1 because we cant say if the installed month is greater than or less than or equal to now month, because if it is less than, it cannot be a one complete year
+      years = now.year - idate.year - 1
+
+      if idate.month == now.month && idate.day <= now.day 
+        years += 1
+        days = now.day - idate.day
+      elsif idate.month < now.month
+        years += 1
+        # subtracted 1 because we cant say if the installed day is greater than or equal to now day, because if it is less than, it cannot be a one complete month
+        months = now.month - idate.month - 1
+
+        if idate.day <= now.day
+          months += 1
+          days = now.day - idate.day 
+        else  # installed day is greater than now day
+          # get the last day of installed date month
+          last_day_of_installed_date_month = idate.end_of_month.day
+          installed_date_days = last_day_of_installed_date_month - idate.day
+
+          days = now.day + installed_date_days
+        end
+      else
+        installed_date_months = 12 - idate.month 
+        # subtracted 1 because we cant say if the installed day is greater than or equal to now day, because if it is less than, it cannot be a one complete month
+        months = now.month + installed_date_months - 1
+
+        if idate.day <= now.day
+          months += 1
+          days = now.day - idate.day 
+        else  # installed day is greater than now day
+          if idate.month == now.month
+            puts "same month"
+            days = idate.day - now.day
+          else
+            # get the last day of installed date month
+            last_day_of_installed_date_month = idate.end_of_month.day
+            installed_date_days = last_day_of_installed_date_month - idate.day
+
+            days = now.day + installed_date_days
+          end
+        end
+      end
+    end
+
+    puts years, months, days
+
+    if years == 0 && months == 0 && days == 0
+      return "0 Day"
+    else
+      return "#{years} Years, #{months} Months, #{days} Days"
+    end
   end
   
   def self.filters(filters)
@@ -64,5 +142,24 @@ class Equipment < ApplicationRecord
 
     return code
   end
+  
+  # def generate_qr
+  #   require 'uri'
+  #   require 'net/http'
+  #   require 'openssl'
+
+  #   url = URI("https://qrcode-monkey.p.rapidapi.com/qr/custom?data=https%3A%2F%2Fwww.qrcode-monkey.com&config=%7B%22bodyColor%22%3A%20%22%230277BD%22%2C%20%22body%22%3A%22mosaic%22%7D&download=true&file=png&size=600")
+
+  #   http = Net::HTTP.new(url.host, url.port)
+  #   http.use_ssl = true
+  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+  #   request = Net::HTTP::Get.new(url)
+  #   request["X-RapidAPI-Key"] = 'ba261fb8femshdd4bc29b7fc0848p1131dfjsna0fd6adebda9'
+  #   request["X-RapidAPI-Host"] = 'qrcode-monkey.p.rapidapi.com'
+
+  #   response = http.request(request)
+  #   puts response.read_body
+  # end
   
 end

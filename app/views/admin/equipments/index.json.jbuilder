@@ -9,6 +9,14 @@ json.equipments do
     json.branch       equipment.branch.name 
     json.age          equipment.age
     json.brand        equipment.brand
+  
+    if equipment.images.attached?
+      json.images do
+        json.array! equipment.images.collect{|image| url_for(image)}
+      end
+    else
+      json.images     []
+    end
   end
 end
 
