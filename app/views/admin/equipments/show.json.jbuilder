@@ -7,6 +7,8 @@ json.equipment do
   json.description  @equipment.description
   json.branch       @equipment.branch.name 
   json.age          @equipment.age
+  json.brand        @equipment.brand
+  json.installed_date         @equipment.installed_date.strftime("%b %e, %Y")
   
   if @equipment.images.attached?
     json.images do

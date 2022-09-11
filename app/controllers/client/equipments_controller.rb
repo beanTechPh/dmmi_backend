@@ -7,12 +7,14 @@ class Client::EquipmentsController < ClientController
 
     company = Company.first
     equipments = company.equipments
-    @branches = company.branches
+    @branches = Branch.all
+    @brands = equipments.pluck(:brand).uniq.sort
 
     filters = {
       type_filter: params[:type_filter],
       origin_filter: params[:origin_filter],
-      branch_filter: params[:branch_filter]
+      branch_filter: params[:branch_filter],
+      brand_filter: params[:brand_filter]
     }
 
     if !params[:keyword].present?
@@ -37,7 +39,7 @@ class Client::EquipmentsController < ClientController
   end
   
   def show
-    @equipment = Equipment.find_by(serial_no: params[:id])
+    @equipment = Equipment.find(params[:id])
   end
   
 end

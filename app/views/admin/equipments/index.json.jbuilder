@@ -9,6 +9,7 @@ json.equipments do
     json.branch       equipment.branch.name 
     json.age          equipment.age
     json.brand        equipment.brand
+    json.date         equipment.installed_date.strftime("%b %e, %Y")
   
     if equipment.images.attached?
       json.images do
