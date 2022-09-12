@@ -16,4 +16,12 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :website, path: '', defaults: {format: :json} do
+    resources :home, only: [:index]
+    resources :products
+    resources :services
+    resources :contact, only: [:create]
+    resources :custom_product, only: [:show]
+  end
 end

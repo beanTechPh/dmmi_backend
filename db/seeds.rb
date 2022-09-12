@@ -75,3 +75,149 @@ if Equipment.all.count == 0
     e.update!(url_code: Equipment.generate_url_code)
   end
 end
+
+if Service.all.count == 0 
+  services = [
+    {
+      name: "Retrofitting",
+      description: "DMMI can engage retrofitting of old/damage equipment into the corresponding new specification",
+      is_top_service: true,
+      icon: "engineering-supervision.png"
+    },
+    {
+      name: "Testing and Commissioning",
+      description: "With excellent technical team, DMMI can provide reports with proper analysis and correct maintenance methodology",
+      is_top_service: true,
+      icon: "testing-and-comissioning.png"
+    },
+    {
+      name: "AFTER SALES SERVICE",
+      description: "DMMI can provide after sale service 24hrs 7 days a week. Moreover, DMMI can provide 1 year warranty on factory defects.",
+      is_top_service: true,
+      icon: "after-sales.png"
+    }
+  ]
+
+  Service.transaction do
+    services.each do |service|
+      s = Service.create(
+        name: service[:name],
+        description: service[:description],
+        is_top_service: service[:is_top_service]
+      )
+  
+      s.icon.attach(io: File.open("app/assets/images/services/#{service[:icon]}"), filename: service[:icon])
+    end
+  end
+end
+
+if Product.all.count == 0
+  products = [
+    {
+      name: "All Types Of Free Standing Panels",
+      raw_material: "Galvanized Iron Sheets 1.4mm - 2.0mm",
+      coating: "Powder Coated",
+      color: "Wrinkled Grey/Wrinkled Beige/ Client's Color Choice",
+      application: "LVSG, MVSG, ATS, MTS, Relay Panel, & etc",
+      usage: "Industrial Plant, Factories, Commercial Bldg, Hotels, Malls, Schools & etc.",
+      is_top_product: true,
+      image: "all-types-of-free-standing-panels.jpg"
+    },
+    {
+      name: "Cable Tray System",
+      raw_material: "Galvanized Iron Sheets 1.4mm - 2.0mm",
+      coating: "Powder Coated",
+      color: "Wrinkled Grey/Wrinkled Beige/ Client's Color Choice",
+      application: "Indoor/Outdoor",
+      usage: "Industrial Plant, Factories, Commercial Bldg, Hotels, Malls, Schools & etc.",
+      is_top_product: true,
+      image: "cable-tray.jpg"
+    },
+    {
+      name: "Distribution Panel Boards",
+      raw_material: "Galvanized Iron Sheets 1.4mm - 2.0mm",
+      coating: "Powder Coated",
+      color: "Wrinkled Grey/Wrinkled Beige/ Client's Color Choice",
+      application: "Multi Distribution Panel Boards",
+      usage: "Industrial Plant, Factories, Commercial Bldg, Hotels, Malls, Schools & etc.",
+      is_top_product: true,
+      image: "distribution-panel-board.jpg"
+    },
+    {
+      name: "Meter Centers",
+      raw_material: "Galvanized Iron Sheets 1.4mm - 2.0mm",
+      coating: "Powder Coated",
+      color: "Wrinkled Grey/Wrinkled Beige/ Client's Color Choice",
+      application: "Elevated/Outdoor/Indoor Meter Centers",
+      usage: "Industrial Plant, Factories, Commercial Bldg, Hotels, Malls, Schools & etc.",
+      is_top_product: true,
+      image: "meter-center.png"
+    },
+    {
+      name: "Enclosed Circuit Breakers",
+      raw_material: "Galvanized Iron Sheets 1.4mm - 2.0mm",
+      coating: "Powder Coated",
+      color: "Wrinkled Grey/Wrinkled Beige/ Client's Color Choice",
+      application: "ECB/MTS/ATS/ Any Nema Standard",
+      usage: "Industrial Plant, Factories, Commercial Bldg, Hotels, Malls, Schools & etc.",
+      is_top_product: true,
+      image: "enclosed-circuit-breaker.jpeg"
+    },
+    {
+      name: "Automatic Transfer Switch",
+      image: "Automatic-Transfer-Switch.jpg"
+    },
+    {
+      name: "Busbar and Breaker Gutter",
+      image: "Busbar and Breaker Gutter.jpg"
+    },
+    {
+      name: "Capacitor Bank",
+      image: "CAPACITOR BANK.png"
+    },
+    {
+      name: "Data Cabinets",
+      image: "Data Cabinets.jpg"
+    },
+    {
+      name: "Low Voltage Switchgear",
+      image: "Low Voltage Switchgear.jpg"
+    },
+    {
+      name: "Manual Transfer Switch",
+      image: "Manual Transfer Switch.jpg"
+    },
+    {
+      name: "Medium Voltage Switchgear",
+      image: "Medium Voltage Switchgear.jpeg"
+    },
+    {
+      name: "PROTECTION RELAY PANEL",
+      image: "PROTECTION RELAY PANEL.png"
+    },
+    {
+      name: "Pull Boxes",
+      image: "Pull Boxes.jpg"
+    },
+    {
+      name: "SYNCHRONIZING PANEL",
+      image: "SYNCHRONIZING PANEL.jpg"
+    }
+  ]
+
+  Product.transaction do
+    products.each do |product|
+      p = Product.create!(
+        name: product[:name],
+        raw_material: product[:raw_material],
+        coating: product[:coating],
+        color: product[:color],
+        application: product[:application],
+        usage: product[:usage],
+        is_top_product: product[:is_top_product]
+      )
+  
+      p.image.attach(io: File.open("app/assets/images/products/#{product[:image]}"), filename: product[:image])
+    end
+  end
+end

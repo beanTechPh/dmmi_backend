@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2022_09_05_044943) do
     t.index ["staff_id"], name: "index_company_staffs_on_staff_id"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "company"
+    t.string "email"
+    t.string "mobile"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "equipment", force: :cascade do |t|
     t.string "name"
     t.bigint "product_type_id", null: false
@@ -117,6 +127,26 @@ ActiveRecord::Schema.define(version: 2022_09_05_044943) do
 
   create_table "product_types", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "raw_material"
+    t.string "coating"
+    t.string "color"
+    t.string "application"
+    t.string "usage"
+    t.boolean "is_top_product", default: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "is_top_service", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
