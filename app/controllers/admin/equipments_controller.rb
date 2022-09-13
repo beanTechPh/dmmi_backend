@@ -5,7 +5,7 @@ class Admin::EquipmentsController < AdminController
     @page = params[:page].present? ? params[:page].to_i : 1
     offset = params[:page].present? ? params[:page].to_i - 1 : 0
 
-    equipments = Equipment.all.order(:serial_no)
+    equipments = Equipment.all.order(serial_no: :desc)
     @branches = Branch.all
     @brands = equipments.pluck(:brand).uniq.sort
 
@@ -69,7 +69,7 @@ class Admin::EquipmentsController < AdminController
 
   private 
     def equipment_params 
-      params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, images: [])
+      params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, images: [], schematics: [])
     end
     
 end

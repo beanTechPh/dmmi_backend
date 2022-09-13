@@ -2,6 +2,7 @@ class Equipment < ApplicationRecord
   belongs_to :product_type
   belongs_to :branch
   has_many_attached :images
+  has_many_attached :schematics
 
   def age
     years = 0

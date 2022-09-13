@@ -18,6 +18,14 @@ json.equipments do
     else
       json.images     []
     end
+  
+    if equipment.schematics.attached?
+      json.schematics do
+        json.array! equipment.schematics.collect{|schematic| url_for(schematic)}
+      end
+    else
+      json.schematics     []
+    end
   end
 end
 
