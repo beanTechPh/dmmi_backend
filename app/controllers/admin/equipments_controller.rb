@@ -60,6 +60,13 @@ class Admin::EquipmentsController < AdminController
 
     equipment.save! 
 
+    params[:components].each do |comp|
+      comp = comp.permit(:name, :brand, :qty, :description, :image)
+      component = Component.new(comp)
+      component.equipment_id = equipment.id 
+      component.save!
+    end
+
     render json: {}, status: 200
   rescue => e 
     logger.info("\n\n\n\n #{e} \n\n\n\n")

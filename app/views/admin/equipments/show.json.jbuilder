@@ -25,4 +25,15 @@ json.equipment do
   else
     json.schematics     []
   end
+
+  json.components do
+    json.array! @equipment.components do |component|
+      json.id             component.id 
+      json.name           component.name 
+      json.brand          component.brand 
+      json.qty            component.qty 
+      json.description    component.description
+      json.image          component.image.attached? ? url_for(component.image) : ""
+    end
+  end
 end
