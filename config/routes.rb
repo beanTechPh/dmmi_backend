@@ -15,6 +15,8 @@ Rails.application.routes.draw do
         get 'new', to: "equipments#new"
       end
     end
+
+    resources :admins
   end
 
   namespace :website, path: '', defaults: {format: :json} do

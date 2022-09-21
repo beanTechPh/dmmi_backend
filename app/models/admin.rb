@@ -6,4 +6,9 @@ class Admin < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  def formal_name
+    "#{last_name}, #{first_name}"
+  end
+  
 end
