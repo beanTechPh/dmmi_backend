@@ -11,7 +11,6 @@ class Admin::EquipmentsController < AdminController
 
     filters = {
       type_filter: params[:type_filter],
-      origin_filter: params[:origin_filter],
       branch_filter: params[:branch_filter],
       brand_filter: params[:brand_filter]
     }

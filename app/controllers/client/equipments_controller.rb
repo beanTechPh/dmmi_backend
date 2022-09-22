@@ -6,13 +6,12 @@ class Client::EquipmentsController < ClientController
     offset = params[:page].present? ? params[:page].to_i - 1 : 0
 
     company = Company.first
-    equipments = company.equipments
+    equipments = company.equipments.order(serial_no: :desc)
     @branches = Branch.all
     @brands = equipments.pluck(:brand).uniq.sort
 
     filters = {
       type_filter: params[:type_filter],
-      origin_filter: params[:origin_filter],
       branch_filter: params[:branch_filter],
       brand_filter: params[:brand_filter]
     }

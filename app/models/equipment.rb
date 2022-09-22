@@ -95,10 +95,6 @@ class Equipment < ApplicationRecord
       equipments = equipments.where(product_type_id: product_type.id)
     end
     
-    if filters[:origin_filter].present?
-      equipments = equipments.where(origin: filters[:origin_filter])
-    end
-    
     if filters[:branch_filter].present?
       branch = Branch.find_by(name: filters[:branch_filter])
 
