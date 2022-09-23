@@ -24,7 +24,11 @@ json.equipment do
   else
     json.schematics     []
   end
-
+  
+  if @equipment.documentation.attached?
+    json.documentation       url_for(@equipment.documentation)
+  end
+  
   json.components do
     json.array! @equipment.components do |component|
       json.id             component.id 
@@ -32,7 +36,10 @@ json.equipment do
       json.brand          component.brand 
       json.qty            component.qty 
       json.description    component.description
-      json.image          component.image.attached? ? url_for(component.image) : ""
+
+      if component.image.attached?
+        json.image           url_for(component.image)
+      end
     end
   end
 end

@@ -75,7 +75,7 @@ class Admin::EquipmentsController < AdminController
 
   private 
     def equipment_params 
-      params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, images: [], schematics: [])
+      params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, :documentation, images: [], schematics: [])
     end
     
 end

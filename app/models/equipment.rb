@@ -3,6 +3,7 @@ class Equipment < ApplicationRecord
   belongs_to :branch
   has_many_attached :images
   has_many_attached :schematics
+  has_one_attached :documentation
   has_many :components
 
   def age
