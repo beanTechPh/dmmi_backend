@@ -25,5 +25,6 @@ Rails.application.routes.draw do
     resources :services
     resources :contact, only: [:create]
     resources :custom_product, only: [:show]
+    resources :equipments, only: [:show]
   end
 end
