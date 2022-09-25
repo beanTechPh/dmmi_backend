@@ -1,5 +1,7 @@
 class Company < ApplicationRecord
   has_many :branches
+  has_many :company_staffs 
+  has_many :staffs, through: :company_staffs
   has_one_attached :logo
   
   def equipments

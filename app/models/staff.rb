@@ -6,4 +6,11 @@ class Staff < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  has_one :company_staff 
+  has_one :company, through: :company_staff
+
+  def formal_name
+    "#{last_name}, #{first_name}"
+  end
 end

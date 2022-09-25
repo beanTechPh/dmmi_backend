@@ -5,8 +5,13 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'Staff', at: 'staff_auth'
 
     resources :equipments
-    resources :dashboard
+    resources :dashboard do
+      collection do
+        get :sidebar
+      end
+    end
     resources :companies
+    resources :staffs
   end
 
   namespace :admin do

@@ -5,9 +5,9 @@ class Client::EquipmentsController < ClientController
     @page = params[:page].present? ? params[:page].to_i : 1
     offset = params[:page].present? ? params[:page].to_i - 1 : 0
 
-    company = Company.first
+    company = @current_user.company
     equipments = company.equipments.order(serial_no: :desc)
-    @branches = Branch.all
+    @branches = company.branches
     @brands = equipments.pluck(:brand).uniq.sort
 
     filters = {
