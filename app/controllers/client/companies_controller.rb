@@ -14,6 +14,11 @@ class Client::CompaniesController < ClientController
     logger.info("\n\n\n\n #{e} \n\n\n\n")
     render json: {error: e}, status: 500 
   end
+
+  def profile
+    @company = @current_user.company
+  end
+  
   
   private 
     def company_params

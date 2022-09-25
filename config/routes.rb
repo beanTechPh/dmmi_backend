@@ -10,7 +10,11 @@ Rails.application.routes.draw do
         get :sidebar
       end
     end
-    resources :companies
+    resources :companies, only: [:create] do
+      collection do
+        get :profile
+      end
+    end
     resources :staffs
   end
 
