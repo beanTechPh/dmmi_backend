@@ -29,6 +29,10 @@ json.equipment do
     json.documentation       url_for(@equipment.documentation)
   end
   
+  if @equipment.qr_code.attached?
+    json.qr_code       url_for(@equipment.qr_code)
+  end
+  
   json.components do
     json.array! @equipment.components do |component|
       json.id             component.id 

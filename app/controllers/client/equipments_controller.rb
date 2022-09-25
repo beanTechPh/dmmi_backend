@@ -39,6 +39,10 @@ class Client::EquipmentsController < ClientController
   
   def show
     @equipment = Equipment.find(params[:id])
+
+    if !@equipment.present?
+      @equipment = Equipment.find_by(url_code: params[:id])
+    end
   end
   
 end

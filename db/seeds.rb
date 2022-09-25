@@ -19,9 +19,9 @@ end
 
 if Company.all.count == 0
   Company.create!(
-    name: "DMMI",
-    address: "Cebu City",
-    email: "info.dmmimftg@gmail.com"
+    name: "Double Dragon",
+    address: "Manila City",
+    email: "dd.admin@dmmimftg.com",
   )
 end
 
@@ -43,36 +43,6 @@ if Branch.all.count == 0
       name: branch,
       company_id: Company.first.id
     )
-  end
-end
-
-if Equipment.all.count == 0
-  equipments = [
-    {
-      name: "Low Voltage Switch Gear",
-      product_type: ProductType.find_by(name: "All Types Of Free Standing Panels"),
-      serial_no: "22001",
-      origin: "order",
-      description: "4000A, 3P, 400V, Schnieder",
-      installed_date: DateTime.new(2021, 8),
-      branch: Branch.find_by(name: "City Mall Cotabato"),
-      brand: "DMMI"
-    },
-    {
-      name: "Enclosed Panel Board",
-      product_type: ProductType.find_by(name: "Distribution Panel Board"),
-      serial_no: "22002",
-      origin: "scan",
-      description: "4000A, 3P, 400V, Schnieder",
-      installed_date: DateTime.new(2020, 8),
-      branch: Branch.find_by(name: "City Mall Danao"),
-      brand: "Existing"
-    }
-  ]
-
-  equipments.each do |equipment|
-    e = Equipment.create!(equipment)
-    e.update!(url_code: Equipment.generate_url_code)
   end
 end
 

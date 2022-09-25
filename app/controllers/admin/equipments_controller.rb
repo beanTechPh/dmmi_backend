@@ -66,6 +66,8 @@ class Admin::EquipmentsController < AdminController
       component.save!
     end
 
+    equipment.generate_qr
+
     render json: {}, status: 200
   rescue => e 
     logger.info("\n\n\n\n #{e} \n\n\n\n")

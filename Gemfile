@@ -45,3 +45,5 @@ gem 'devise'
 gem 'rack-cors', '~> 1.1.1', :require => 'rack/cors'
 gem 'devise_token_auth', git: 'https://github.com/lynndylanhurley/devise_token_auth.git'
 gem 'pg'
+gem "rqrcode", "~> 2.0"
+gem "chunky_png", "~> 1.4"

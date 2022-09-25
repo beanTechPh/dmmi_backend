@@ -4,6 +4,7 @@ class Equipment < ApplicationRecord
   has_many_attached :images
   has_many_attached :schematics
   has_one_attached :documentation
+  has_one_attached :qr_code
   has_many :components
 
   def age
@@ -141,23 +142,33 @@ class Equipment < ApplicationRecord
     return code
   end
   
-  # def generate_qr
-  #   require 'uri'
-  #   require 'net/http'
-  #   require 'openssl'
+  def generate_qr
+    require "rqrcode"
 
-  #   url = URI("https://qrcode-monkey.p.rapidapi.com/qr/custom?data=https%3A%2F%2Fwww.qrcode-monkey.com&config=%7B%22bodyColor%22%3A%20%22%230277BD%22%2C%20%22body%22%3A%22mosaic%22%7D&download=true&file=png&size=600")
+    if qr_code.attached?
+      qr_code.purge
+    end
 
-  #   http = Net::HTTP.new(url.host, url.port)
-  #   http.use_ssl = true
-  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-  #   request = Net::HTTP::Get.new(url)
-  #   request["X-RapidAPI-Key"] = 'ba261fb8femshdd4bc29b7fc0848p1131dfjsna0fd6adebda9'
-  #   request["X-RapidAPI-Host"] = 'qrcode-monkey.p.rapidapi.com'
-
-  #   response = http.request(request)
-  #   puts response.read_body
-  # end
+    if Rails.env == "development"
+      qr = RQRCode::QRCode.new("http://localhost:3001/equipments/#{url_code}")
+    else
+      qr = RQRCode::QRCode.new("http://client.dmmimftg.com/equipments/#{url_code}")
+    end
+    
+    png = qr.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: "black",
+      file: nil,
+      fill: "FFFFFF00",
+      module_px_size: 6,
+      resize_exactly_to: false,
+      resize_gte_to: false,
+      size: 120
+    )
+    
+    self.qr_code.attach(io: StringIO.new(png.to_s), filename: "#{url_code}.png")
+  end
   
 end
