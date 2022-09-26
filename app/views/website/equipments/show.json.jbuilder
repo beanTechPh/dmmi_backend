@@ -24,6 +24,10 @@ json.equipment do
   else
     json.schematics     []
   end
+  
+  if @equipment.qr_code.attached?
+    json.qr_code       url_for(@equipment.qr_code)
+  end
 
   json.components do
     json.array! @equipment.components do |component|

@@ -30,4 +30,10 @@ class Admin::AdminsController < AdminController
     @total_page = (num_of_admins.to_f/num_of_items.to_f).ceil
   end
   
+  def create
+    InviteMailer.with(email: params[:email]).admin_invite.deliver_later
+    
+    render status: 200
+  end
+  
 end

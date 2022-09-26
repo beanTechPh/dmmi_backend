@@ -25,6 +25,22 @@ if Company.all.count == 0
   )
 end
 
+if Staff.all.count == 0
+  staff = Staff.create!(
+    first_name: "Paul Brian",
+    last_name: "Marcuelo",
+    mobile_no: "09053536495",
+    address: "Cebu City",
+    email: "test1@gmail.com",
+    password: "123456"
+  )
+
+  CompanyStaff.create!(
+    company_id: Company.first.id,
+    staff_id: staff.id
+  )
+end
+
 if ProductType.all.count == 0
   types = ["All Types Of Free Standing Panels", "Distribution Panel Board"]
 

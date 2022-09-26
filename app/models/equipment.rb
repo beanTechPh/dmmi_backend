@@ -152,7 +152,7 @@ class Equipment < ApplicationRecord
     if Rails.env == "development"
       qr = RQRCode::QRCode.new("http://localhost:3001/equipments/#{url_code}")
     else
-      qr = RQRCode::QRCode.new("http://client.dmmimftg.com/equipments/#{url_code}")
+      qr = RQRCode::QRCode.new("http://dmmimftg.com/equipments/#{url_code}")
     end
     
     png = qr.as_png(
