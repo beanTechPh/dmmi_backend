@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inquiry: one
+  user: one
+  user_type: User
+  body: MyString
+  is_read: false
+
+two:
+  inquiry: two
+  user: two
+  user_type: User
+  body: MyString
+  is_read: false

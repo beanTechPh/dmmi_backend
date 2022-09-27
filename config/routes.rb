@@ -16,6 +16,11 @@ Rails.application.routes.draw do
       end
     end
     resources :staffs
+    resources :inquiries do
+      collection do
+        post :tech_support
+      end
+    end
   end
 
   namespace :admin do

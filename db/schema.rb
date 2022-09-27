@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_21_120815) do
+ActiveRecord::Schema.define(version: 2022_09_27_154849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,26 @@ ActiveRecord::Schema.define(version: 2022_09_21_120815) do
     t.index ["product_type_id"], name: "index_equipment_on_product_type_id"
   end
 
+  create_table "inquiries", force: :cascade do |t|
+    t.string "subject"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_inquiries_on_company_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "inquiry_id", null: false
+    t.string "user_type", null: false
+    t.bigint "user_id", null: false
+    t.string "body"
+    t.boolean "is_read"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["inquiry_id"], name: "index_messages_on_inquiry_id"
+    t.index ["user_type", "user_id"], name: "index_messages_on_user_type_and_user_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "id_no"
     t.datetime "date"
@@ -195,5 +215,7 @@ ActiveRecord::Schema.define(version: 2022_09_21_120815) do
   add_foreign_key "components", "equipment"
   add_foreign_key "equipment", "branches"
   add_foreign_key "equipment", "product_types"
+  add_foreign_key "inquiries", "companies"
+  add_foreign_key "messages", "inquiries"
   add_foreign_key "orders", "companies"
 end

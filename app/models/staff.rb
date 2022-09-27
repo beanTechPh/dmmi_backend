@@ -9,6 +9,7 @@ class Staff < ActiveRecord::Base
 
   has_one :company_staff 
   has_one :company, through: :company_staff
+  has_many :messages, as: :user
 
   def formal_name
     "#{last_name}, #{first_name}"

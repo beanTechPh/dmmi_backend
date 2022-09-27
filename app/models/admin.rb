@@ -7,6 +7,8 @@ class Admin < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :messages, as: :user
+  
   def formal_name
     "#{last_name}, #{first_name}"
   end
