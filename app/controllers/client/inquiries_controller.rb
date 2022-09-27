@@ -26,6 +26,24 @@ class Client::InquiriesController < ClientController
     @total_page = (num_of_inquiries.to_f/num_of_items.to_f).ceil
   end
 
+  def create
+    inquiry = Inquiry.new(inquiry_params)
+    inquiry.company_id = @current_user.company.id
+    inquiry.save! 
+
+    Message.create!(
+      inquiry_id: inquiry.id,
+      user: @current_user,
+      body: params[:body],
+      is_read: false
+    )
+
+    render json: {}, status: 200
+  rescue => e 
+    logger.info("\n\n\n\n #{e} \n\n\n\n")
+    render json: {error: e}, status: 500 
+  end
+
   def tech_support
     equipment = Equipment.find(params[:equipment_id])
 
@@ -49,4 +67,9 @@ class Client::InquiriesController < ClientController
     render json: {error: e}, status: 500 
   end
   
+  private 
+    def inquiry_params
+      params.permit(:subject)
+    end
+    
 end
