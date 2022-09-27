@@ -1,5 +1,31 @@
 class Client::InquiriesController < ClientController
 
+  def index
+    num_of_items = params[:num_entries].present? ? params[:num_entries].to_i : 10
+    @page = params[:page].present? ? params[:page].to_i : 1
+    offset = params[:page].present? ? params[:page].to_i - 1 : 0
+
+    inquiries = Inquiry.all.order(id: :desc)
+
+    if !params[:keyword].present?
+      @inquiries = inquiries
+      num_of_inquiries = @inquiries.count
+    else
+      keywords = params[:keyword].split(' ').map{|kw| "%#{kw}%"}
+
+      it = Inquiry.arel_table
+      @inquiries = inquiries.where(
+        it[:subject].matches_all(keywords)
+      )
+      
+      num_of_inquiries = @inquiries.count
+    end
+
+    @inquiries = @inquiries.offset(offset * num_of_items).limit(num_of_items)
+
+    @total_page = (num_of_inquiries.to_f/num_of_items.to_f).ceil
+  end
+
   def tech_support
     equipment = Equipment.find(params[:equipment_id])
 
