@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         post :tech_support
       end
     end
+    resources :messages
   end
 
   namespace :admin do
