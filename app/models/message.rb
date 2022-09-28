@@ -6,4 +6,8 @@ class Message < ApplicationRecord
     self.where(is_read: false)
   end
   
+  def self.admin_unread
+    self.where(is_admin_read: false)
+  end
+  
 end

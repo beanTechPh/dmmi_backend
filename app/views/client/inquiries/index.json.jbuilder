@@ -4,7 +4,7 @@ json.inquiries do
     json.subject          inquiry.subject
     json.last_message     inquiry.messages.last 
     json.num_unread       inquiry.messages.unread.count
-    json.date             inquiry.messages.last.created_at.strftime("%b %e, %Y")
+    json.date             inquiry.messages.last.created_at.in_time_zone("Asia/Manila").strftime("%b %e, %Y")
   end
 end
 
