@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+    resources :orders
   end
 
   namespace :admin do
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
     resources :equipments do
       collection do
         get 'new', to: "equipments#new"
+        post :update_details
       end
     end
 

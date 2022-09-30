@@ -19,6 +19,7 @@ class Admin::MessagesController < AdminController
       body: params[:body],
       inquiry_id: params[:inquiry_id],
       is_read: false,
+      is_admin_read: true,
       user: @current_user
     )
 

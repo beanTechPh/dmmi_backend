@@ -18,7 +18,8 @@ class Client::MessagesController < ClientController
     @message = Message.new(
       body: params[:body],
       inquiry_id: params[:inquiry_id],
-      is_read: false,
+      is_read: true,
+      is_admin_read: false,
       user: @current_user
     )
 

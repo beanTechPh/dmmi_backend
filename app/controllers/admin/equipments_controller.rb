@@ -74,7 +74,19 @@ class Admin::EquipmentsController < AdminController
     render json: {error: e}, status: 500 
   end
   
+  def update_details
+    equipment = Equipment.find(params[:id])
+    equipment.update!(equipment_params)
+    equipment.brand = params[:brand].upcase
+    equipment.save!
+    equipment.reload
 
+    render json: {}, status: 200
+  rescue => e 
+    logger.info("\n\n\n\n #{e} \n\n\n\n")
+    render json: {error: e}, status: 500 
+  end
+  
   private 
     def equipment_params 
       params.permit(:name, :product_type_id, :installed_date, :brand, :branch_id, :description, :documentation, images: [], schematics: [])

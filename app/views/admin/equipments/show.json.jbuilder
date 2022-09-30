@@ -1,10 +1,14 @@
 json.equipment do
   json.id           @equipment.id 
   json.name         @equipment.name 
-  json.type         @equipment.product_type.name 
+  json.type         @equipment.product_type 
   json.serial_no    @equipment.serial_no
   json.description  @equipment.description
-  json.branch       @equipment.branch.name 
+  json.branch do
+    json.id             @equipment.branch.id 
+    json.name           @equipment.branch.name 
+    json.company_id     @equipment.branch.company_id
+  end
   json.age          @equipment.age
   json.brand        @equipment.brand
   json.installed_date         @equipment.installed_date.strftime("%b %e, %Y")
