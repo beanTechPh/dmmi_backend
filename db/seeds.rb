@@ -7,14 +7,25 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 if Admin.all.count == 0
-  Admin.create!(
-    first_name: "Super",
-    last_name: "Admin",
-    mobile_no: "09053536495",
-    address: "Cebu City",
-    email: "superadmin@gmail.com",
-    password: "123456"
-  )
+  if Rails.env == "development"
+    Admin.create!(
+      first_name: "Super",
+      last_name: "Admin",
+      mobile_no: "09053536495",
+      address: "Cebu City",
+      email: "superadmin@gmail.com",
+      password: "123456"
+    )
+  else
+    Admin.create!(
+      first_name: "Super",
+      last_name: "Admin",
+      mobile_no: "09053536495",
+      address: "Cebu City",
+      email: "superadmin@gmail.com",
+      password: "admindmmi2012"
+    )
+  end
 end
 
 if Company.all.count == 0
