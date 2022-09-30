@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :admins
     resources :inquiries
     resources :messages
+    resources :contacts
   end
 
   namespace :website, path: '', defaults: {format: :json} do
