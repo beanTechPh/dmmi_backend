@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :dashboard
     resources :admins
     resources :inquiries
     resources :messages
