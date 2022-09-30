@@ -28,7 +28,7 @@ test:
 
 production:
   <<: *default
-  username: dmmi
+  username: dmmi_prod
   password: As7LMAWrjpxx6JcW
   database: dmmi_prod
   host: localhost
